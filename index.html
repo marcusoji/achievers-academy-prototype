@@ -1,0 +1,915 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Achiever's Academy SMIS - Ultimate Premium Platform</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .custom-scrollbar::-webkit-scrollbar { width: 4px; height: 4px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #10b981; border-radius: 4px; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+        .animate-fade-in { animation: fadeIn 0.3s ease-out forwards; }
+        
+        /* Premium Smartphone Simulation Wrapper */
+        .phone-container {
+            width: 375px;
+            height: 812px;
+            border: 12px solid #064e3b;
+            border-radius: 40px;
+            position: relative;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            background: #ffffff;
+            overflow: hidden;
+        }
+        .phone-notch {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 140px;
+            height: 24px;
+            background: #064e3b;
+            border-bottom-left-radius: 18px;
+            border-bottom-right-radius: 18px;
+            z-index: 50;
+        }
+    </style>
+</head>
+<body class="bg-stone-100 text-slate-800 antialiased overflow-x-hidden min-h-screen">
+
+    <div id="toast-container" class="fixed z-50 bottom-5 right-5 flex flex-col gap-2 max-w-sm"></div>
+
+    <div id="app-root" class="min-h-screen flex flex-col justify-center items-center py-6">
+        
+        <div id="login-screen" class="w-full min-h-screen flex items-center justify-center bg-gradient-to-br from-emerald-950 via-emerald-900 to-emerald-950 px-4 py-12 fixed inset-0 z-50">
+            <div class="w-full max-w-xl bg-white p-8 rounded-2xl shadow-2xl relative z-10 animate-fade-in border border-emerald-800/20">
+                <div class="text-center mb-6">
+                    <div class="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-emerald-600 text-white shadow-lg mb-3">
+                        <i class="fa-solid fa-graduation-cap text-3xl"></i>
+                    </div>
+                    <h2 class="text-2xl font-bold text-emerald-900">Achiever's Academy</h2>
+                    <p class="text-xs text-emerald-700/70 font-medium mt-1">School Management Information System (SMIS v3.0 Ultra)</p>
+                </div>
+
+                <div class="bg-emerald-50 border border-emerald-100 rounded-xl p-4 mb-6 text-xs">
+                    <span class="font-bold text-emerald-800 block mb-2"><i class="fa-solid fa-toggle-on mr-1"></i> Selection Dashboard Role Matrix:</span>
+                    <div class="grid grid-cols-2 gap-2">
+                        <button onclick="quickFill('student@achievers.edu')" class="text-left bg-white hover:bg-emerald-600 hover:text-white p-2.5 rounded-lg border border-emerald-200/60 font-semibold flex items-center gap-1.5 transition">
+                            <i class="fa-solid fa-user text-emerald-600"></i> Student Portal <span class="text-[9px] bg-amber-100 text-amber-800 px-1 rounded ml-auto">Mobile</span>
+                        </button>
+                        <button onclick="quickFill('parent@gmail.com')" class="text-left bg-white hover:bg-emerald-600 hover:text-white p-2.5 rounded-lg border border-emerald-200/60 font-semibold flex items-center gap-1.5 transition">
+                            <i class="fa-solid fa-users text-emerald-600"></i> Parent Portal <span class="text-[9px] bg-amber-100 text-amber-800 px-1 rounded ml-auto">Mobile</span>
+                        </button>
+                        <button onclick="quickFill('teacher@achievers.edu')" class="text-left bg-white hover:bg-emerald-600 hover:text-white p-2.5 rounded-lg border border-emerald-200/60 font-semibold flex items-center gap-1.5 transition">
+                            <i class="fa-solid fa-chalkboard-user text-emerald-600"></i> Class Teacher <span class="text-[9px] bg-amber-100 text-amber-800 px-1 rounded ml-auto">Mobile</span>
+                        </button>
+                        <button onclick="quickFill('principal@achievers.edu')" class="text-left bg-white hover:bg-emerald-600 hover:text-white p-2.5 rounded-lg border border-emerald-200/60 font-semibold flex items-center gap-1.5 transition">
+                            <i class="fa-solid fa-user-tie text-emerald-600"></i> Principal Desk <span class="text-[9px] bg-emerald-100 text-emerald-800 px-1 rounded ml-auto">Desktop</span>
+                        </button>
+                        <button onclick="quickFill('accountant@achievers.edu')" class="text-left bg-white hover:bg-emerald-600 hover:text-white p-2.5 rounded-lg border border-emerald-200/60 font-semibold flex items-center gap-1.5 transition">
+                            <i class="fa-solid fa-wallet text-emerald-600"></i> Accountant <span class="text-[9px] bg-emerald-100 text-emerald-800 px-1 rounded ml-auto">Desktop</span>
+                        </button>
+                        <button onclick="quickFill('admin@achievers.edu')" class="text-left bg-white hover:bg-emerald-600 hover:text-white p-2.5 rounded-lg border border-emerald-200/60 font-semibold flex items-center gap-1.5 transition">
+                            <i class="fa-solid fa-shield-halved text-emerald-600"></i> Admin Panel <span class="text-[9px] bg-emerald-100 text-emerald-800 px-1 rounded ml-auto">Desktop</span>
+                        </button>
+                    </div>
+                </div>
+
+                <form onsubmit="handleAuth(event)" class="space-y-4">
+                    <div>
+                        <label for="identity" class="block text-xs font-semibold text-emerald-900 mb-1">Email Address Credentials</label>
+                        <input id="identity" type="email" required class="w-full px-3 py-2.5 bg-slate-50 border border-slate-200 text-sm rounded-xl focus:outline-none focus:ring-2 focus:ring-emerald-500 placeholder-slate-400" placeholder="example@achievers.edu">
+                    </div>
+                    <button type="submit" class="w-full py-3 bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-sm rounded-xl transition shadow-lg">
+                        Initialize Core Workspace Environment
+                    </button>
+                </form>
+            </div>
+        </div>
+
+        <div id="workspace-mount-surface" class="hidden w-full min-h-screen"></div>
+
+    </div>
+
+    <script>
+        const DEFAULT_STUDENTS = [
+            { id: "AA/2024/001", name: "Balogun Temiloluwa", class: "SS2", status: "Active", feesPaid: 120000, balance: 0, attendance: 96, history: ["P","P","P","A","P"], ca1: 12, ca2: 14, exam: 60, cbtScore: 24 },
+            { id: "AA/2023/042", name: "Adebayo Chukwudi", class: "JS3", status: "Active", feesPaid: 65000, balance: 55000, attendance: 88, history: ["P","P","A","P","P"], ca1: 10, ca2: 11, exam: 52, cbtScore: null },
+            { id: "AA/2024/109", name: "Olawale Jessica", class: "SS2", status: "Active", feesPaid: 120000, balance: 0, attendance: 100, history: ["P","P","P","P","P"], ca1: 15, ca2: 15, exam: 68, cbtScore: null },
+            { id: "AA/2025/012", name: "Fagbemi Emmanuel", class: "JS1", status: "Active", feesPaid: 40000, balance: 80000, attendance: 74, history: ["A","P","A","P","A"], ca1: 8, ca2: 9, exam: 40, cbtScore: null },
+            { id: "AA/2022/089", name: "Gabriel Ayomide Jr.", class: "SS2", status: "Active", feesPaid: 120000, balance: 0, attendance: 94, history: ["P","P","P","P","A"], ca1: 11, ca2: 12, exam: 50, cbtScore: 20 },
+            { id: "AA/2024/204", name: "Chinedu Blessing", class: "SS1", status: "Active", feesPaid: 110000, balance: 10000, attendance: 91, history: ["P","A","P","P","P"], ca1: 13, ca2: 12, exam: 58, cbtScore: null },
+            { id: "AA/2023/115", name: "Yusuf Aminu Danjuma", class: "SS3", status: "Active", feesPaid: 135000, balance: 0, attendance: 98, history: ["P","P","P","P","P"], ca1: 14, ca2: 14, exam: 65, cbtScore: null },
+            { id: "AA/2025/088", name: "Okonkwo Somtochukwu", class: "JS2", status: "Active", feesPaid: 50000, balance: 70000, attendance: 82, history: ["P","A","P","A","P"], ca1: 9, ca2: 10, exam: 45, cbtScore: null },
+            { id: "AA/2024/019", name: "Eze Chioma Mary", class: "SS2", status: "Active", feesPaid: 120000, balance: 0, attendance: 95, history: ["P","P","P","P","A"], ca1: 12, ca2: 13, exam: 61, cbtScore: null },
+            { id: "AA/2023/007", name: "Abubakar Aisha", class: "SS3", status: "Active", feesPaid: 135000, balance: 0, attendance: 97, history: ["P","P","P","P","P"], ca1: 15, ca2: 13, exam: 66, cbtScore: null },
+            { id: "AA/2024/156", name: "Adeyemi Tunde James", class: "SS1", status: "Active", feesPaid: 90000, balance: 30000, attendance: 89, history: ["A","P","P","P","P"], ca1: 11, py1: 11, exam: 48, cbtScore: null },
+            { id: "AA/2025/034", name: "Nwachukwu Promise", class: "JS1", status: "Active", feesPaid: 120000, balance: 0, attendance: 92, history: ["P","P","P","P","A"], ca1: 10, ca2: 12, exam: 50, cbtScore: null },
+            { id: "AA/2023/211", name: "Ibrahim Fatima", class: "JS3", status: "Active", feesPaid: 120000, balance: 0, attendance: 96, history: ["P","P","P","P","P"], ca1: 13, ca2: 14, exam: 55, cbtScore: null },
+            { id: "AA/2024/312", name: "Oyenusi Samuel", class: "SS2", status: "Active", feesPaid: 80000, balance: 40000, attendance: 85, history: ["P","A","P","P","A"], ca1: 7, ca2: 11, exam: 42, cbtScore: null },
+            { id: "AA/2022/045", name: "Bello Zainab", class: "SS3", status: "Active", feesPaid: 135000, balance: 0, attendance: 99, history: ["P","P","P","P","P"], ca1: 14, ca2: 15, exam: 69, cbtScore: null },
+            { id: "AA/2024/400", name: "Mustapha Haruna", class: "JS2", status: "Active", feesPaid: 110000, balance: 10000, attendance: 86, history: ["P","P","A","P","P"], ca1: 12, text: 10, exam: 49, cbtScore: null },
+            { id: "AA/2025/102", name: "Onifade Victoria", class: "SS2", status: "Active", feesPaid: 120000, balance: 0, attendance: 93, history: ["P","P","P","A","P"], ca1: 13, ca2: 13, exam: 59, cbtScore: null },
+            { id: "AA/2023/099", name: "Anwar Fatima Kabir", class: "SS1", status: "Active", feesPaid: 60000, balance: 60000, attendance: 90, history: ["P","P","P","P","A"], ca1: 11, ca2: 12, exam: 51, cbtScore: null },
+            { id: "AA/2024/511", name: "Obi Chukwuebuka", class: "JS3", status: "Active", feesPaid: 120000, balance: 0, attendance: 94, history: ["P","P","P","P","P"], ca1: 14, ca2: 11, exam: 57, cbtScore: null },
+            { id: "AA/2022/190", name: "Williams David", class: "SS3", status: "Active", feesPaid: 135000, balance: 0, attendance: 95, history: ["P","P","P","A","P"], ca1: 12, ca2: 14, exam: 63, cbtScore: null },
+            { id: "AA/2025/144", name: "Effiong Aniefiok", class: "JS1", status: "Active", feesPaid: 70000, balance: 50000, attendance: 80, history: ["A","P","P","A","P"], ca1: 9, ca2: 8, exam: 44, cbtScore: null },
+            { id: "AA/2024/077", name: "Sanni Olumide", class: "SS2", status: "Active", feesPaid: 120000, balance: 0, attendance: 97, history: ["P","P","P","P","P"], ca1: 14, ca2: 15, exam: 62, cbtScore: null },
+            { id: "AA/2023/150", name: "Dike Chiamaka", class: "SS1", status: "Active", feesPaid: 100000, balance: 20000, attendance: 92, history: ["P","P","A","P","P"], ca1: 10, ca2: 13, exam: 54, cbtScore: null },
+            { id: "AA/2025/199", name: "Ahmed Isa Umar", class: "JS2", status: "Active", feesPaid: 120000, balance: 0, attendance: 87, history: ["P","P","P","A","A"], ca1: 11, ca2: 11, exam: 47, cbtScore: null },
+            { id: "AA/2024/280", name: "Amadi Precious", class: "SS2", status: "Active", feesPaid: 0, balance: 120000, attendance: 84, history: ["A","P","P","P","A"], ca1: 8, ca2: 10, exam: 41, cbtScore: null },
+            { id: "AA/2023/011", name: "Popoola Morayo", class: "SS3", status: "Active", feesPaid: 135000, balance: 0, attendance: 98, history: ["P","P","P","P","P"], ca1: 15, ca2: 14, exam: 70, cbtScore: null },
+            { id: "AA/2025/250", name: "Garba Danjuma", class: "JS3", status: "Active", feesPaid: 85000, balance: 35000, attendance: 89, history: ["P","A","P","P","P"], ca1: 12, ca2: 12, exam: 53, cbtScore: null },
+            { id: "AA/2024/601", name: "Oyeneyin Tolulope", class: "SS1", status: "Active", feesPaid: 120000, balance: 0, attendance: 96, history: ["P","P","P","P","P"], ca1: 13, ca2: 11, exam: 56, cbtScore: null },
+            { id: "AA/2022/300", name: "Umanah Itoro", class: "SS3", status: "Active", feesPaid: 135000, balance: 0, attendance: 100, history: ["P","P","P","P","P"], ca1: 14, ca2: 15, exam: 67, cbtScore: null },
+            { id: "AA/2025/309", name: "Lawal Lateef", class: "JS1", status: "Active", feesPaid: 50000, balance: 70000, attendance: 85, history: ["P","P","A","P","P"], ca1: 10, ca2: 9, exam: 42, cbtScore: null }
+        ];
+
+        const AppState = {
+            activeUser: null,
+            activeTab: 'dashboard',
+            problemsTrackerOpen: false,
+            searchQuery: '',
+            filterClass: 'All',
+            students: JSON.parse(localStorage.getItem('smis_students_v3')) || DEFAULT_STUDENTS,
+            cbtQuestions: [
+                { id: 1, text: "Solve for x in the expression: 3x - 7 = 14", options: ["A) x = 5", "B) x = 7", "C) x = 9", "D) x = 4"], correct: 1, approved: true },
+                { id: 2, text: "Which of the following describes a functional Progressive Web App (PWA) trait?", options: ["A) Native binary compiling", "B) Offline capability via Service Workers", "C) Strict reliance on App Stores", "D) Zero styling layouts"], correct: 1, approved: true },
+                { id: 3, text: "What is the primary function of a Supabase database reference entity?", options: ["A) Local storage serialization", "B) Realtime data synchronization and persistent relational tables", "C) Client UI component re-rendering", "D) Compiling Tailwind classes"], correct: 1, approved: false }
+            ],
+            userCbtAnswers: {},
+            inventory: [
+                { id: "INV-001", item: "Mathematics Textbooks (SS2)", category: "Academics", stock: 42, threshold: 45, status: "Reorder" },
+                { id: "INV-002", item: "Dual-Seater Wooden Desks", category: "Furniture", stock: 180, threshold: 150, status: "Good" },
+                { id: "INV-003", item: "Chemistry Lab Reagent Kits", category: "Laboratory", stock: 15, threshold: 20, status: "Reorder" },
+                { id: "INV-004", item: "Computer Lab Desktop Units", category: "Technology", stock: 35, threshold: 30, status: "Good" },
+                { id: "INV-005", item: "Whiteboard Dry-Erase Markers", category: "Stationery", stock: 120, threshold: 50, status: "Good" }
+            ],
+            communications: [
+                { id: 1, title: "Second Term Exam Timetable Commences", body: "The Computer-Based Exams for Senior Classes will officially commence this Thursday. Ensure students check their seating halls.", date: "June 22, 2026", sender: "Principal Office" },
+                { id: 2, title: "School Fees Clearance Notice", body: "Parents with pending outstanding balances are advised to clear accounts at the Bursar desk to access report cards.", date: "June 19, 2026", sender: "Bursar Department" },
+                { id: 3, title: "Inter-House Sports Equipment Delivery", body: "New sports jerseys and athletic track gears have arrived safely at the central administrative warehouse store room.", date: "June 15, 2026", sender: "Sports Coordinator" }
+            ],
+            problems: [
+                { id: 1, text: "Slow manual student onboarding & data paperwork mistakes.", fix: "Fixed: Integrated instant single-click digital registration forms." },
+                { id: 2, text: "Human errors calculating test scores and grades manually.", fix: "Fixed: System calculates CA aggregates and assigns letter grades live." },
+                { id: 3, text: "Messy attendance tracking with zero historical reports.", fix: "Fixed: Premium multi-day tracking dashboard interface with fast indices." },
+                { id: 4, text: "Tracking unpaid tuition balances and issuing payment notices.", fix: "Fixed: Central billing dashboard with direct transaction processing links." },
+                { id: 5, text: "Lack of immediate CBT assessment infrastructure pipelines.", fix: "Fixed: Live-rendering student examination simulator added securely to portals." }
+            ],
+            stakeholders: {
+                'student@achievers.edu': { name: "Gabriel Ayomide Jr.", role: "student", avatar: "GJ" },
+                'parent@gmail.com': { name: "Ayodele Gabriel (Parent)", role: "parent", avatar: "AG" },
+                'teacher@achievers.edu': { name: "Mr. Elijah Skillful", role: "teacher", avatar: "ES" },
+                'principal@achievers.edu': { name: "Mr. Emenike Charles", role: "principal", avatar: "EC" },
+                'accountant@achievers.edu': { name: "Lead Accountant", role: "accountant", avatar: "LA" },
+                'admin@achievers.edu': { name: "System Admin", role: "admin", avatar: "SA" }
+            }
+        };
+
+        function persistToMemory() { localStorage.setItem('smis_students_v3', JSON.stringify(AppState.students)); }
+        function calculateGrade(total) {
+            if (total >= 70) return 'A (Excellent)';
+            if (total >= 60) return 'B (Very Good)';
+            if (total >= 50) return 'C (Credit)';
+            if (total >= 40) return 'P (Pass)';
+            return 'F (Fail)';
+        }
+
+        function showToast(text) {
+            const container = document.getElementById('toast-container');
+            const toast = document.createElement('div');
+            toast.className = "p-3.5 rounded-xl shadow-xl text-xs font-semibold bg-emerald-900 text-white border border-emerald-700 flex items-center gap-2.5 animate-fade-in";
+            toast.innerHTML = `<i class="fa-solid fa-circle-check text-emerald-400"></i> <span>${text}</span>`;
+            container.appendChild(toast);
+            setTimeout(() => toast.remove(), 2500);
+        }
+
+        function quickFill(email) { document.getElementById('identity').value = email; showToast(`Active Context: ${email}`); }
+
+        function handleAuth(event) {
+            event.preventDefault();
+            const email = document.getElementById('identity').value.trim();
+            if (AppState.stakeholders[email]) {
+                AppState.activeUser = AppState.stakeholders[email];
+                AppState.problemsTrackerOpen = false;
+                AppState.activeTab = 'dashboard';
+                document.getElementById('login-screen').classList.add('hidden');
+                renderAppFramework();
+            } else { alert("Account node context mismatch."); }
+        }
+
+        function terminateSession() {
+            AppState.activeUser = null;
+            document.getElementById('workspace-mount-surface').classList.add('hidden');
+            document.getElementById('login-screen').classList.remove('hidden');
+        }
+
+        function isMobileRole() { return ['student', 'parent', 'teacher'].includes(AppState.activeUser.role); }
+
+        function renderAppFramework() {
+            const mount = document.getElementById('workspace-mount-surface');
+            mount.classList.remove('hidden');
+            mount.innerHTML = '';
+
+            if (isMobileRole()) {
+                mount.className = "w-full min-h-screen flex items-center justify-center bg-stone-900 py-4 px-2";
+                mount.innerHTML = `
+                    <div class="phone-container shadow-2xl bg-white flex flex-col">
+                        <div class="phone-notch"></div>
+                        <div class="bg-emerald-800 text-white pt-6 pb-2 px-6 flex justify-between items-center text-[10px] font-medium tracking-tight shrink-0 select-none">
+                            <span>1:52 PM</span>
+                            <div class="flex items-center gap-1.5 text-[9px]"><i class="fa-solid fa-signal"></i><i class="fa-solid fa-wifi"></i><i class="fa-solid fa-battery-full text-[11px]"></i></div>
+                        </div>
+                        <div class="flex-1 overflow-y-auto overflow-x-hidden p-4 bg-emerald-50/30 custom-scrollbar flex flex-col" id="mobile-payload-mount"></div>
+                        <div class="bg-white border-t border-slate-100 text-slate-400 px-1 py-2 flex justify-around items-center shrink-0" id="mobile-tabs-container"></div>
+                    </div>
+                `;
+                renderMobileTabs();
+                triggerWorkspaceNavigation();
+            } else {
+                mount.className = "w-full min-h-screen bg-white flex flex-col text-slate-800";
+                mount.innerHTML = `
+                    <header class="bg-emerald-900 text-white px-6 py-3.5 flex items-center justify-between border-b border-emerald-950 shadow shrink-0">
+                        <div class="flex items-center gap-3">
+                            <div class="w-9 h-9 rounded-xl bg-white flex items-center justify-center text-emerald-900 font-bold shadow"><i class="fa-solid fa-graduation-cap text-lg"></i></div>
+                            <div><h1 class="text-sm font-bold tracking-tight">Achiever's Academy Central Portal</h1><p class="text-[10px] text-emerald-200">Management & Administration Hub</p></div>
+                        </div>
+                        <div class="flex items-center gap-4 text-xs">
+                            <span class="font-bold bg-emerald-800/60 px-3 py-1.5 rounded-lg border border-emerald-700/50"><i class="fa-solid fa-user-circle text-emerald-400 mr-1.5"></i> ${AppState.activeUser.name}</span>
+                            <button onclick="terminateSession()" class="text-emerald-100 hover:text-rose-300 font-bold transition flex items-center gap-1"><i class="fa-solid fa-power-off"></i> Exit</button>
+                        </div>
+                    </header>
+                    <div class="flex-1 flex overflow-hidden">
+                        <aside class="w-64 bg-emerald-950 p-4 flex flex-col justify-between shrink-0">
+                            <nav class="space-y-1" id="desktop-nav-container"></nav>
+                            <button onclick="toggleProblemView()" id="problem-tracker-btn" class="w-full flex items-center justify-between px-3 py-2.5 bg-emerald-900 hover:bg-emerald-850 rounded-xl text-xs text-emerald-200 font-bold transition shadow-inner">
+                                <span><i class="fa-solid fa-square-poll-vertical mr-2"></i> System Audit Tracker</span><i class="fa-solid fa-chevron-right text-[9px]"></i>
+                            </button>
+                        </aside>
+                        <main class="flex-1 p-8 bg-stone-50 overflow-y-auto custom-scrollbar" id="desktop-payload-mount"></main>
+                    </div>
+                `;
+                renderDesktopNavigation();
+                triggerWorkspaceNavigation();
+            }
+        }
+
+        function renderMobileTabs() {
+            const container = document.getElementById('mobile-tabs-container');
+            container.innerHTML = '';
+            const role = AppState.activeUser.role;
+
+            const tabs = [
+                { id: 'dashboard', label: 'Home', icon: 'fa-house', allow: ['student', 'parent', 'teacher'] },
+                { id: 'attendance', label: 'Roll Call', icon: 'fa-calendar-check', allow: ['student', 'parent', 'teacher'] },
+                { id: 'academics', label: 'Marks', icon: 'fa-pen-to-square', allow: ['teacher'] },
+                { id: 'cbt-portal', label: 'CBT Exam', icon: 'fa-laptop-code', allow: ['student', 'teacher'] },
+                { id: 'student-results', label: 'Results', icon: 'fa-award', allow: ['student', 'parent'] },
+                { id: 'communication', label: 'Notices', icon: 'fa-bell', allow: ['student', 'parent', 'teacher'] }
+            ];
+
+            tabs.forEach(t => {
+                if(t.allow.includes(role)) {
+                    const btn = document.createElement('button');
+                    btn.className = `flex flex-col items-center gap-0.5 flex-1 py-1 text-[10px] font-bold transition ${AppState.activeTab === t.id && !AppState.problemsTrackerOpen ? 'text-emerald-600' : 'text-slate-400 hover:text-slate-600'}`;
+                    btn.onclick = () => {
+                        AppState.problemsTrackerOpen = false;
+                        AppState.activeTab = t.id;
+                        renderMobileTabs();
+                        triggerWorkspaceNavigation();
+                    };
+                    btn.innerHTML = `<i class="fa-solid ${t.icon} text-sm"></i> <span>${t.label}</span>`;
+                    container.appendChild(btn);
+                }
+            });
+        }
+
+        function renderDesktopNavigation() {
+            const container = document.getElementById('desktop-nav-container');
+            container.innerHTML = '';
+            const role = AppState.activeUser.role;
+
+            const items = [
+                { id: 'dashboard', label: 'Dashboard Home', icon: 'fa-chart-pie', allow: ['admin', 'principal', 'accountant'] },
+                { id: 'registration', label: 'Register New Profiles', icon: 'fa-user-plus', allow: ['admin', 'principal'] },
+                { id: 'students', label: 'Student Directory', icon: 'fa-address-book', allow: ['admin', 'principal', 'accountant'] },
+                { id: 'attendance', label: 'Attendance Audit', icon: 'fa-calendar-days', allow: ['admin', 'principal'] },
+                { id: 'cbt-portal', label: 'CBT Verification Hub', icon: 'fa-laptop-code', allow: ['admin', 'principal'] },
+                { id: 'finances', label: 'Bursar Ledger Billing', icon: 'fa-receipt', allow: ['admin', 'accountant', 'principal'] },
+                { id: 'inventory', label: 'School Facility Asset Stocks', icon: 'fa-boxes-stacked', allow: ['admin', 'accountant', 'principal'] },
+                { id: 'communication', label: 'Broadcast Infrastructure', icon: 'fa-bullhorn', allow: ['admin', 'principal'] },
+                { id: 'sysconfig', label: 'System Settings System', icon: 'fa-gears', allow: ['admin'] }
+            ];
+
+            items.forEach(i => {
+                if (i.allow.includes(role)) {
+                    const btn = document.createElement('button');
+                    btn.className = `w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-xs font-bold transition ${AppState.activeTab === i.id && !AppState.problemsTrackerOpen ? 'bg-emerald-600 text-white shadow' : 'text-emerald-100 hover:bg-emerald-900/60'}`;
+                    btn.onclick = () => { AppState.problemsTrackerOpen = false; AppState.activeTab = i.id; renderDesktopNavigation(); triggerWorkspaceNavigation(); };
+                    btn.innerHTML = `<i class="fa-solid ${i.icon} text-center w-5 text-sm"></i> ${i.label}`;
+                    container.appendChild(btn);
+                }
+            });
+        }
+
+        function toggleProblemView() {
+            AppState.problemsTrackerOpen = !AppState.problemsTrackerOpen;
+            if(!isMobileRole()) renderDesktopNavigation();
+            triggerWorkspaceNavigation();
+        }
+
+        function triggerWorkspaceNavigation() {
+            const displayMount = isMobileRole() ? document.getElementById('mobile-payload-mount') : document.getElementById('desktop-payload-mount');
+            displayMount.innerHTML = '';
+
+            if (AppState.problemsTrackerOpen) { renderProblemsGrid(displayMount); return; }
+
+            switch(AppState.activeTab) {
+                case 'dashboard': renderDashboardHome(displayMount); break;
+                case 'registration': renderRegistrationForms(displayMount); break;
+                case 'students': renderStudentsRoster(displayMount); break;
+                case 'attendance': renderAttendanceView(displayMount); break;
+                case 'cbt-portal': renderCbtPortalView(displayMount); break;
+                case 'communication': renderCommunicationPortal(displayMount); break;
+                case 'finances': renderFinancesLedger(displayMount); break;
+                case 'inventory': renderInventoryLedger(displayMount); break;
+                case 'academics': renderAcademicsPortal(displayMount); break;
+                case 'student-results': renderStudentResultsView(displayMount); break;
+                case 'sysconfig': renderSysConfigView(displayMount); break;
+            }
+        }
+
+        // --- CORE RENDER IMPLEMENTATIONS ---
+        function renderDashboardHome(mount) {
+            const user = AppState.activeUser;
+            if (isMobileRole()) {
+                mount.innerHTML = `
+                    <div class="animate-fade-in space-y-4">
+                        <div class="bg-gradient-to-br from-emerald-700 to-emerald-900 text-white p-4 rounded-2xl shadow flex justify-between items-center">
+                            <div>
+                                <span class="text-[9px] font-bold text-emerald-200 tracking-wider uppercase block">Active School Term Session</span>
+                                <h3 class="text-base font-bold mt-0.5">Hello, ${user.name}</h3>
+                                <p class="text-[10px] text-emerald-100 capitalize">Account Node Platform: ${user.role}</p>
+                            </div>
+                            <button onclick="terminateSession()" class="bg-emerald-600/50 p-2 rounded-xl text-xs hover:bg-rose-600 transition"><i class="fa-solid fa-power-off"></i></button>
+                        </div>
+                        
+                        <div class="bg-white border border-slate-100 p-4 rounded-xl shadow-sm space-y-3">
+                            <h4 class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Your Term Analytics Summary</h4>
+                            <div class="space-y-2 text-xs">
+                                <div>
+                                    <div class="flex justify-between font-medium mb-1"><span>Average Class Performance</span><span class="font-bold text-emerald-600">84%</span></div>
+                                    <div class="w-full bg-slate-100 h-2 rounded-full overflow-hidden"><div class="bg-emerald-500 h-full w-[84%]"></div></div>
+                                </div>
+                                <div>
+                                    <div class="flex justify-between font-medium mb-1"><span>Syllabus Covered Progress</span><span class="font-bold text-emerald-600">72%</span></div>
+                                    <div class="w-full bg-slate-100 h-2 rounded-full overflow-hidden"><div class="bg-emerald-400 h-full w-[72%]"></div></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="bg-white border border-slate-100 rounded-xl p-4 shadow-sm space-y-1.5">
+                            <h4 class="text-[10px] font-bold text-emerald-700 uppercase tracking-wider"><i class="fa-solid fa-bullhorn mr-1"></i> Critical Broadcast Bulletin</h4>
+                            <div class="text-xs font-bold text-slate-900">${AppState.communications[0].title}</div>
+                            <p class="text-[11px] text-slate-500 leading-normal font-medium">${AppState.communications[0].body}</p>
+                        </div>
+                    </div>
+                `;
+            } else {
+                let totalCollected = AppState.students.reduce((acc, curr) => acc + curr.feesPaid, 0);
+                let totalOwed = AppState.students.reduce((acc, curr) => acc + curr.balance, 0);
+                
+                mount.innerHTML = `
+                    <div class="animate-fade-in space-y-6">
+                        <div><h2 class="text-xl font-bold text-slate-900 tracking-tight">Administrative Operations Hub</h2><p class="text-xs text-slate-500">Live school operation snapshots calculated instantly across the active data parameters.</p></div>
+                        <div class="grid grid-cols-4 gap-4">
+                            <div class="bg-white border border-slate-200 p-5 rounded-xl shadow-sm">
+                                <span class="text-xs font-semibold text-slate-400 block uppercase">Student Registries</span>
+                                <div class="text-2xl font-black text-emerald-900 mt-1">${AppState.students.length} Records</div>
+                            </div>
+                            <div class="bg-white border border-slate-200 p-5 rounded-xl shadow-sm">
+                                <span class="text-xs font-semibold text-slate-400 block uppercase">Bursar Collections</span>
+                                <div class="text-2xl font-black text-emerald-600 mt-1">₦${totalCollected.toLocaleString()}</div>
+                            </div>
+                            <div class="bg-white border border-slate-200 p-5 rounded-xl shadow-sm">
+                                <span class="text-xs font-semibold text-slate-400 block uppercase">Outstanding Debtors</span>
+                                <div class="text-2xl font-black text-rose-600 mt-1">₦${totalOwed.toLocaleString()}</div>
+                            </div>
+                            <div class="bg-white border border-slate-200 p-5 rounded-xl shadow-sm">
+                                <span class="text-xs font-semibold text-slate-400 block uppercase">CBT Active Exams</span>
+                                <div class="text-2xl font-black text-indigo-600 mt-1">${AppState.cbtQuestions.length} Questions</div>
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-3 gap-6 mt-4">
+                            <div class="bg-white border border-slate-200 p-5 rounded-xl shadow-sm col-span-2 space-y-3">
+                                <h3 class="text-xs font-bold text-slate-900 uppercase">Interactive Operational Integrity Stream</h3>
+                                <div class="space-y-2.5 text-xs">
+                                    <div>
+                                        <div class="flex justify-between mb-1 text-slate-600 font-semibold"><span>Overall Core Database Security Integrity Status</span><span class="text-emerald-600 font-bold">100% Secure</span></div>
+                                        <div class="w-full bg-slate-100 h-2.5 rounded-full"><div class="bg-emerald-600 h-full rounded-full w-full"></div></div>
+                                    </div>
+                                    <div>
+                                        <div class="flex justify-between mb-1 text-slate-600 font-semibold"><span>Tuition Targets Achieved Ledger Mapping</span><span class="text-emerald-600 font-bold">78% Complete</span></div>
+                                        <div class="w-full bg-slate-100 h-2.5 rounded-full"><div class="bg-emerald-50 h-full rounded-full w-[78%]"></div></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="bg-white border border-slate-200 p-5 rounded-xl shadow-sm space-y-2">
+                                <h3 class="text-xs font-bold text-slate-900 uppercase">Active Classes Metrics</h3>
+                                <div class="grid grid-cols-2 gap-2 text-center text-xs font-bold">
+                                    <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-100">JS Blocks <span class="block text-sm text-emerald-700 font-black mt-0.5">120 Students</span></div>
+                                    <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-100">SS Blocks <span class="block text-sm text-emerald-700 font-black mt-0.5">245 Students</span></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }
+        }
+
+        // --- DYNAMICALLY ISOLATED PERMISSION ATTENDANCE VIEW ---
+        function renderAttendanceView(mount) {
+            const role = AppState.activeUser.role;
+            const isMobile = isMobileRole();
+            
+            // Filter records context based on isolation policy criteria
+            let recordsToRender = AppState.students;
+            if (role === 'student' || role === 'parent') {
+                // Hard isolated to Gabriel Ayomide Jr's specific mock registry asset file row node 
+                recordsToRender = [AppState.students[4]];
+            }
+
+            if (isMobile) {
+                let tableRows = recordsToRender.map((s) => {
+                    let boxes = s.history.map((day, dIdx) => {
+                        if (role === 'teacher') {
+                            return `
+                                <button onclick="toggleDayHistory('${s.id}', ${dIdx})" class="w-7 h-7 rounded-lg text-[10px] font-black transition flex items-center justify-center border ${day==='P' ? 'bg-emerald-500 text-white border-emerald-600 shadow-sm' : 'bg-rose-500 text-white border-rose-600 shadow-sm'}">
+                                    ${day}
+                                </button>`;
+                        } else {
+                            // Read-Only rendering for Students & Parents
+                            return `
+                                <div class="w-7 h-7 rounded-lg text-[10px] font-black flex items-center justify-center border select-none ${day==='P' ? 'bg-emerald-500/20 text-emerald-700 border-emerald-200' : 'bg-rose-500/20 text-rose-700 border-rose-200'}">
+                                    ${day}
+                                </div>`;
+                        }
+                    }).join('');
+
+                    return `
+                        <div class="p-3 bg-white border border-slate-100 rounded-xl shadow-sm flex flex-col gap-2 animate-fade-in text-xs">
+                            <div class="flex justify-between items-center">
+                                <div>
+                                    <span class="font-extrabold text-slate-900 block">${s.name}</span>
+                                    <span class="text-[10px] text-slate-400 font-mono tracking-wider">${s.id} | Stream: ${s.class}</span>
+                                </div>
+                                <div class="text-right">
+                                    <span class="text-[11px] font-black text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-100">${s.attendance}% Ratio</span>
+                                </div>
+                            </div>
+                            <div class="flex items-center justify-between border-t border-dashed border-slate-100 pt-2 bg-slate-50/50 p-1.5 rounded-lg">
+                                <span class="text-[10px] text-slate-400 font-bold uppercase tracking-wider">Weekly Log:</span>
+                                <div class="flex gap-1.5">${boxes}</div>
+                            </div>
+                        </div>`;
+                }).join('');
+
+                mount.innerHTML = `
+                    <div class="animate-fade-in space-y-3">
+                        <div class="flex justify-between items-center">
+                            <div>
+                                <h2 class="text-sm font-bold text-slate-900">${role === 'teacher' ? 'Premium Attendance Desk' : 'Personal Attendance History'}</h2>
+                                <p class="text-[10px] text-slate-400">${role === 'teacher' ? 'Interactive multi-day register ledger mapping' : 'Read-only track record sheet'}</p>
+                            </div>
+                            <span class="text-[10px] bg-emerald-900 text-white px-2 py-1 rounded-xl font-bold">Term 2</span>
+                        </div>
+                        <div class="grid grid-cols-5 text-center text-[10px] font-bold text-slate-400 uppercase tracking-widest px-2 bg-white border py-1.5 rounded-xl">
+                            <span>M</span><span>T</span><span>W</span><span>T</span><span>F</span>
+                        </div>
+                        <div class="space-y-2 max-h-[520px] overflow-y-auto pr-0.5 custom-scrollbar">${tableRows}</div>
+                    </div>`;
+            } else {
+                // Desktop Roster Matrix View (Principal & Admin context) - Strictly Read Only
+                let desktopRows = AppState.students.map(s => {
+                    let tdBoxes = s.history.map((day) => `
+                        <td class="p-2 text-center">
+                            <div class="mx-auto w-7 h-7 rounded-lg text-[10px] font-black flex items-center justify-center border select-none ${day==='P' ? 'bg-emerald-500/20 text-emerald-700 border-emerald-200':'bg-rose-500/20 text-rose-700 border-rose-200'}">${day}</div>
+                        </td>
+                    `).join('');
+                    return `
+                        <tr class="border-b border-slate-100 hover:bg-slate-50/60 text-xs">
+                            <td class="p-3 font-mono font-bold text-slate-500">${s.id}</td>
+                            <td class="p-3 font-bold text-slate-900">${s.name}</td>
+                            <td class="p-3 text-center font-bold text-emerald-800"><span class="bg-emerald-50 border px-2 py-0.5 rounded">${s.class}</span></td>
+                            ${tdBoxes}
+                            <td class="p-3 font-extrabold text-right text-emerald-600">${s.attendance}%</td>
+                        </tr>`;
+                }).join('');
+
+                mount.innerHTML = `
+                    <div class="bg-white border border-slate-200 p-6 rounded-xl shadow-sm animate-fade-in">
+                        <div class="mb-4 flex justify-between items-center">
+                            <div>
+                                <h2 class="font-bold text-lg text-slate-900">Institutional Turnout & Attendance Matrix</h2>
+                                <p class="text-xs text-slate-400">Comprehensive overview of all structural record logs parameters.</p>
+                            </div>
+                            <span class="text-xs bg-slate-100 border text-slate-500 font-bold px-3 py-1.5 rounded-xl"><i class="fa-solid fa-lock mr-1.5"></i> Administrative Read-Only Access Mode</span>
+                        </div>
+                        <div class="max-h-[500px] overflow-y-auto custom-scrollbar">
+                            <table class="w-full text-left border-collapse">
+                                <thead>
+                                    <tr class="bg-slate-50 text-[10px] text-slate-400 font-bold border-b border-slate-100 sticky top-0">
+                                        <th class="p-3 bg-slate-50">Student ID</th><th class="p-3 bg-slate-50">Legal Fullname</th><th class="p-3 bg-slate-50 text-center">Class</th>
+                                        <th class="p-2 text-center bg-slate-50">Mon</th><th class="p-2 text-center bg-slate-50">Tue</th><th class="p-2 text-center bg-slate-50">Wed</th><th class="p-2 text-center bg-slate-50">Thu</th><th class="p-2 text-center bg-slate-50">Fri</th>
+                                        <th class="p-3 text-right bg-slate-50">Aggregate</th>
+                                    </tr>
+                                </thead>
+                                <tbody>${desktopRows}</tbody>
+                            </table>
+                        </div>
+                    </div>`;
+            }
+        }
+
+        function toggleDayHistory(studId, dayIndex) {
+            // Guard clause checking if session context matches write privilege role
+            if (AppState.activeUser.role !== 'teacher') return;
+            
+            let s = AppState.students.find(stud => stud.id === studId);
+            if(s) {
+                s.history[dayIndex] = s.history[dayIndex] === 'P' ? 'A' : 'P';
+                let presents = s.history.filter(h => h === 'P').length;
+                s.attendance = Math.round((presents / s.history.length) * 100);
+                persistToMemory();
+                showToast("Recalculating turnout matrices...");
+                renderAttendanceView(isMobileRole() ? document.getElementById('mobile-payload-mount') : document.getElementById('desktop-payload-mount'));
+            }
+        }
+
+        // --- CBT PORTAL MODULE WITH UPDATED ROLE-PERMISSIONS ---
+        function renderCbtPortalView(mount) {
+            const role = AppState.activeUser.role;
+
+            if (isMobileRole()) {
+                if (role === 'teacher') {
+                    mount.innerHTML = `
+                        <div class="bg-white border p-4 rounded-xl shadow-sm text-xs space-y-4 animate-fade-in">
+                            <div>
+                                <h2 class="font-bold text-sm text-slate-900">CBT Question Writer Portal</h2>
+                                <p class="text-[10px] text-slate-400">Questions written here will be forwarded to the Principal or Admin for authentication.</p>
+                            </div>
+                            <form onsubmit="handleCreateCbt(event)" class="space-y-3 text-xs">
+                                <div><label class="block font-bold mb-1 text-slate-600">Question Text</label><textarea id="cbt-text" rows="2" required placeholder="Type the question parameter string..." class="w-full p-2.5 border rounded-xl bg-slate-50 outline-none ring-1 ring-slate-100"></textarea></div>
+                                <div class="grid grid-cols-2 gap-2">
+                                    <input id="cbt-o0" type="text" required placeholder="Option A" class="w-full p-2 border rounded-xl bg-slate-50 outline-none ring-1 ring-slate-100">
+                                    <input id="cbt-o1" type="text" required placeholder="Option B" class="w-full p-2 border rounded-xl bg-slate-50 outline-none ring-1 ring-slate-100">
+                                    <input id="cbt-o2" type="text" required placeholder="Option C" class="w-full p-2 border rounded-xl bg-slate-50 outline-none ring-1 ring-slate-100">
+                                    <input id="cbt-o3" type="text" required placeholder="Option D" class="w-full p-2 border rounded-xl bg-slate-50 outline-none ring-1 ring-slate-100">
+                                </div>
+                                <div><label class="block font-bold mb-1 text-slate-600">Correct Index Key</label><select id="cbt-correct" class="w-full p-2 border rounded-xl bg-slate-50 outline-none ring-1 ring-slate-100"><option value="0">Option A</option><option value="1">Option B</option><option value="2">Option C</option><option value="3">Option D</option></select></div>
+                                <button class="w-full py-2.5 bg-emerald-600 text-white font-bold rounded-xl text-xs shadow-sm">Submit Question to Queue</button>
+                            </form>
+                        </div>`;
+                    return;
+                }
+
+                let target = AppState.students[4]; 
+                if (target.cbtScore !== null) {
+                    mount.innerHTML = `
+                        <div class="animate-fade-in space-y-4">
+                            <div class="text-center p-6 bg-white border rounded-2xl shadow-sm space-y-2">
+                                <div class="w-12 h-12 bg-emerald-100 text-emerald-700 rounded-full flex items-center justify-center text-xl mx-auto"><i class="fa-solid fa-lock-open"></i></div>
+                                <h3 class="font-bold text-slate-900 text-sm">CBT Assessment Finished</h3>
+                                <p class="text-xs text-slate-400 leading-relaxed">Your submitted answers have been successfully synchronized back to the master cloud schema repository layers.</p>
+                                <div class="p-3 bg-emerald-50 rounded-xl text-xs font-black text-emerald-900 border border-emerald-100">
+                                    Your Score: ${target.cbtScore} / 30 Marks (Passed)
+                                </div>
+                            </div>
+                        </div>`;
+                    return;
+                }
+
+                let approvedQuestions = AppState.cbtQuestions.filter(q => q.approved);
+                let qCards = approvedQuestions.map((q, idx) => {
+                    let opts = q.options.map((opt, oIdx) => {
+                        const isChecked = AppState.userCbtAnswers[q.id] === oIdx;
+                        return `
+                            <label onclick="saveCbtChoice(${q.id}, ${oIdx})" class="flex items-center gap-3 p-2.5 rounded-xl border text-[11px] font-semibold transition cursor-pointer ${isChecked ? 'bg-emerald-600 text-white border-emerald-700 font-bold' : 'bg-slate-50 hover:bg-slate-100 border-slate-200 text-slate-700'}">
+                                <input type="radio" name="q-${q.id}" ${isChecked ? 'checked':''} class="hidden">
+                                <span>${opt}</span>
+                            </label>
+                        `;
+                    }).join('');
+
+                    return `
+                        <div class="bg-white border p-4 rounded-xl space-y-3 shadow-sm text-xs">
+                            <span class="text-[9px] bg-slate-100 font-bold px-2 py-0.5 rounded text-slate-400">Question Vector ${idx+1} of ${approvedQuestions.length}</span>
+                            <p class="font-bold text-slate-900 leading-relaxed">${q.text}</p>
+                            <div class="flex flex-col gap-1.5">${opts}</div>
+                        </div>`;
+                }).join('');
+
+                mount.innerHTML = `
+                    <div class="animate-fade-in space-y-3">
+                        <div class="bg-slate-900 text-white p-3 rounded-xl flex justify-between items-center text-xs">
+                            <span class="font-bold"><i class="fa-solid fa-clock text-amber-400 mr-1.5"></i> Timer: <span class="font-mono text-amber-300">14:59 Mins</span></span>
+                            <span class="text-[10px] uppercase font-bold tracking-widest text-slate-400">Mathematics</span>
+                        </div>
+                        <div class="space-y-3 max-h-[480px] overflow-y-auto pr-0.5 custom-scrollbar">${qCards}</div>
+                        <button onclick="submitMobileCbtExam()" class="w-full py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs rounded-xl shadow transition">Submit Examination Form</button>
+                    </div>`;
+            } else {
+                let approvalQueueHtml = AppState.cbtQuestions.map(q => `
+                    <div class="p-3 bg-slate-50 border rounded-xl flex justify-between items-center text-xs">
+                        <div class="space-y-1 max-w-[70%]">
+                            <p class="font-bold text-slate-800">${q.text}</p>
+                            <span class="text-[10px] font-semibold ${q.approved ? 'text-emerald-600 bg-emerald-50':'text-amber-600 bg-amber-50'} px-2 py-0.5 rounded border">
+                                ${q.approved ? '<i class="fa-solid fa-check-circle"></i> Live Approved':'<i class="fa-solid fa-clock"></i> Pending Approval Verification'}
+                            </span>
+                        </div>
+                        ${!q.approved ? `
+                            <div class="flex gap-2">
+                                <button onclick="verifyQuestionStatus(${q.id}, true)" class="bg-emerald-600 text-white font-bold px-3 py-1.5 rounded-lg text-[11px] hover:bg-emerald-700 transition">Approve</button>
+                                <button onclick="verifyQuestionStatus(${q.id}, false)" class="bg-rose-50 text-rose-600 font-bold px-3 py-1.5 rounded-lg text-[11px] hover:bg-rose-100 transition">Reject</button>
+                            </div>` : `<span class="text-xs text-slate-400 font-bold"><i class="fa-solid fa-shield-check text-emerald-500"></i> Locked System Data</span>`}
+                    </div>
+                `).join('');
+
+                let typingFormHtml = '';
+                if (role === 'admin') {
+                    typingFormHtml = `
+                        <div class="border-b pb-4 mb-4">
+                            <span class="text-[11px] bg-indigo-50 border border-indigo-100 text-indigo-800 px-2.5 py-1 font-bold rounded-lg mb-3 inline-block"><i class="fa-solid fa-shield-halved"></i> Admin Write Access Module Activated</span>
+                            <form onsubmit="handleCreateCbt(event)" class="space-y-3 text-xs">
+                                <div><label class="block font-bold mb-1 text-slate-600">Question Formulation Content</label><textarea id="cbt-text" rows="2" required placeholder="Type the question parameter string..." class="w-full p-2.5 border rounded-xl bg-slate-50 outline-none ring-1 ring-slate-100"></textarea></div>
+                                <div class="grid grid-cols-2 gap-2">
+                                    <input id="cbt-o0" type="text" required placeholder="Option A" class="w-full p-2 border rounded-xl bg-slate-50 outline-none ring-1 ring-slate-100">
+                                    <input id="cbt-o1" type="text" required placeholder="Option B" class="w-full p-2 border rounded-xl bg-slate-50 outline-none ring-1 ring-slate-100">
+                                    <input id="cbt-o2" type="text" required placeholder="Option C" class="w-full p-2 border rounded-xl bg-slate-50 outline-none ring-1 ring-slate-100">
+                                    <input id="cbt-o3" type="text" required placeholder="Option D" class="w-full p-2 border rounded-xl bg-slate-50 outline-none ring-1 ring-slate-100">
+                                </div>
+                                <div><label class="block font-bold mb-1 text-slate-600">Correct Choice Key Vector Index</label><select id="cbt-correct" class="w-full p-2 border rounded-xl bg-slate-50 outline-none ring-1 ring-slate-100"><option value="0">Option A</option><option value="1">Option B</option><option value="2">Option C</option><option value="3">Option D</option></select></div>
+                                <button class="w-full py-2.5 bg-emerald-600 text-white font-bold rounded-xl text-xs shadow-sm">Append & Auto-Approve Question Stream</button>
+                            </form>
+                        </div>`;
+                } else if (role === 'principal') {
+                    typingFormHtml = `
+                        <div class="bg-amber-50 border border-amber-200 p-3.5 rounded-xl text-xs font-semibold text-amber-900 mb-4 flex items-center gap-2">
+                            <i class="fa-solid fa-triangle-exclamation text-amber-600 text-sm"></i>
+                            <div><strong>Principal Control Isolation Block:</strong> Your role has authentication clearance validation rights. Typing capabilities have been delegated to active Class Teachers.</div>
+                        </div>`;
+                }
+
+                mount.innerHTML = `
+                    <div class="bg-white border border-slate-200 p-6 rounded-xl shadow-sm max-w-xl space-y-4 animate-fade-in">
+                        <div>
+                            <h2 class="font-bold text-lg text-slate-900">CBT Core Examination System Configuration Engine</h2>
+                            <p class="text-xs text-slate-400">Manage deployment validation matrices down to active exam nodes.</p>
+                        </div>
+                        
+                        ${typingFormHtml}
+
+                        <div class="space-y-2">
+                            <h3 class="text-xs font-bold text-slate-900 uppercase tracking-wider">Operational Audit & Approval Logs Queue</h3>
+                            <div class="space-y-2 max-h-[260px] overflow-y-auto pr-1 custom-scrollbar">${approvalQueueHtml}</div>
+                        </div>
+                    </div>`;
+            }
+        }
+
+        function verifyQuestionStatus(qId, statusBoolean) {
+            let q = AppState.cbtQuestions.find(item => item.id === qId);
+            if (q) {
+                if (statusBoolean) {
+                    q.approved = true;
+                    showToast("Question parameters approved for deployment pipeline.");
+                } else {
+                    AppState.cbtQuestions = AppState.cbtQuestions.filter(item => item.id !== qId);
+                    showToast("Question parameter rejected and stripped from queue array.");
+                }
+                renderCbtPortalView(isMobileRole() ? document.getElementById('mobile-payload-mount') : document.getElementById('desktop-payload-mount'));
+            }
+        }
+
+        function saveCbtChoice(qId, oIdx) { AppState.userCbtAnswers[qId] = oIdx; }
+        function submitMobileCbtExam() {
+            AppState.students[4].cbtScore = 30; 
+            persistToMemory();
+            showToast("CBT score compiled successfully.");
+            renderCbtPortalView(document.getElementById('mobile-payload-mount'));
+        }
+        function handleCreateCbt(e) {
+            e.preventDefault();
+            const text = document.getElementById('cbt-text').value;
+            const options = [document.getElementById('cbt-o0').value, document.getElementById('cbt-o1').value, document.getElementById('cbt-o2').value, document.getElementById('cbt-o3').value];
+            const correct = parseInt(document.getElementById('cbt-correct').value);
+            
+            const autoApprove = AppState.activeUser.role === 'admin';
+            
+            AppState.cbtQuestions.push({ id: Date.now(), text: text, options: options, correct: correct, approved: autoApprove });
+            showToast(autoApprove ? "Question payload injected and live." : "Question submitted to Principal verification stack queue.");
+            e.target.reset();
+            renderCbtPortalView(isMobileRole() ? document.getElementById('mobile-payload-mount') : document.getElementById('desktop-payload-mount'));
+        }
+
+        function renderAcademicsPortal(mount) {
+            let fields = AppState.students.filter(s => s.class === "SS2").map(s => {
+                let total = s.ca1 + s.ca2 + s.exam;
+                return `
+                    <div class="p-3.5 bg-white border border-slate-100 rounded-xl space-y-2 shadow-sm text-xs">
+                        <div class="font-bold text-slate-900 flex justify-between"><span>${s.name}</span> <span class="font-mono text-slate-400">${s.id}</span></div>
+                        <div class="grid grid-cols-3 gap-2 text-center text-[11px]">
+                            <div><span class="text-[9px] block text-slate-400 font-bold mb-0.5">1st CA (15)</span><input type="number" max="15" value="${s.ca1}" onchange="updateScore('${s.id}', 'ca1', this.value)" class="w-full p-1.5 border rounded-lg text-center bg-slate-50 font-bold outline-none ring-1 ring-slate-200"></div>
+                            <div><span class="text-[9px] block text-slate-400 font-bold mb-0.5">2nd CA (15)</span><input type="number" max="15" value="${s.ca2}" onchange="updateScore('${s.id}', 'ca2', this.value)" class="w-full p-1.5 border rounded-lg text-center bg-slate-50 font-bold outline-none ring-1 ring-slate-200"></div>
+                            <div><span class="text-[9px] block text-slate-400 font-bold mb-0.5">Exam (70)</span><input type="number" max="70" value="${s.exam}" onchange="updateScore('${s.id}', 'exam', this.value)" class="w-full p-1.5 border rounded-lg text-center bg-slate-50 font-bold outline-none ring-1 ring-slate-200"></div>
+                        </div>
+                        <div class="flex justify-between items-center text-[11px] font-bold bg-emerald-50 text-emerald-900 p-2 rounded-xl border border-emerald-100">
+                            <span>Computed Assessment Aggregate:</span>
+                            <span class="font-extrabold" id="m-tot-${s.id}">${total} / 100 — ${calculateGrade(total)}</span>
+                        </div>
+                    </div>`;
+            }).join('');
+
+            mount.innerHTML = `
+                <div class="animate-fade-in space-y-3">
+                    <div><h2 class="text-sm font-bold text-slate-900">Term Grades Assessment Sheets</h2><p class="text-[11px] text-slate-500">Subject Stream Mapping: <strong>Mathematics (SS2 Block Stream)</strong></p></div>
+                    <div class="space-y-2 max-h-[440px] overflow-y-auto pr-0.5 custom-scrollbar">${fields}</div>
+                    <button onclick="showToast('Grades successfully compiled and synchronized.'); persistToMemory();" class="w-full py-2.5 bg-emerald-600 text-white font-bold rounded-xl text-xs mt-2 shadow">Save Marks Parameters</button>
+                </div>`;
+        }
+
+        function updateScore(id, vector, value) {
+            let s = AppState.students.find(stud => stud.id === id);
+            if(s) {
+                s[vector] = parseInt(value) || 0;
+                let total = s.ca1 + s.ca2 + s.exam;
+                const element = document.getElementById(`m-tot-${id}`);
+                if (element) element.innerText = `${total} / 100 — ${calculateGrade(total)}`;
+            }
+        }
+
+        function renderStudentResultsView(mount) {
+            let target = AppState.students[4];
+            let total = target.ca1 + target.ca2 + target.exam;
+
+            mount.innerHTML = `
+                <div class="animate-fade-in space-y-4">
+                    <div><h2 class="text-sm font-bold text-slate-900">Official Terminal Performance Card</h2><p class="text-[11px] text-slate-500">Active Profile Stream Target: <strong>${target.name}</strong></p></div>
+                    <div class="bg-white border border-slate-100 rounded-xl p-4 text-xs space-y-3 shadow-sm">
+                        <div class="flex justify-between border-b pb-1.5 font-bold text-slate-400 text-[10px] uppercase"><span>Assessment Area Subject</span><span>Allocated Score Metrics</span></div>
+                        <div class="flex justify-between"><span>Continuous Assessment 1 (Test Block)</span><span class="font-bold text-slate-900">${target.ca1} / 15 Marks</span></div>
+                        <div class="flex justify-between"><span>Continuous Assessment 2 (Project Block)</span><span class="font-bold text-slate-900">${target.ca2} / 15 Marks</span></div>
+                        <div class="flex justify-between"><span>Final Terminal Exam Examination Sheet</span><span class="font-bold text-slate-900">${target.exam} / 70 Marks</span></div>
+                        <div class="flex justify-between border-t border-emerald-100 pt-3 font-bold text-slate-900 text-[12px] bg-emerald-50/50 p-2.5 rounded-xl">
+                            <span>Cumulative Average Grade:</span>
+                            <span class="text-emerald-700 font-extrabold">${total}% — ${calculateGrade(total)}</span>
+                        </div>
+                    </div>
+                </div>`;
+        }
+
+        function renderCommunicationPortal(mount) {
+            let alerts = AppState.communications.map(c => `
+                <div class="p-3.5 bg-white border border-slate-100 rounded-xl text-xs space-y-1 shadow-sm">
+                    <div class="text-[9px] text-emerald-700 font-bold">Issued by: ${c.sender} | ${c.date}</div>
+                    <h4 class="font-bold text-slate-900">${c.title}</h4>
+                    <p class="text-slate-500 font-medium text-[11px] leading-relaxed">${c.body}</p>
+                </div>`).join('');
+
+            if(isMobileRole()) {
+                mount.innerHTML = `<div class="animate-fade-in space-y-2.5"><div><h2 class="text-sm font-bold text-slate-900">Broadcast Announcement Channel Feed</h2></div>${alerts}</div>`;
+            } else {
+                mount.innerHTML = `
+                    <div class="animate-fade-in space-y-4 max-w-xl">
+                        <div><h2 class="text-lg font-bold text-slate-900">Broadcast System Engine Infrastructure</h2><p class="text-xs text-slate-500">Disseminate notification matrices directly down to parent and student app client view layers.</p></div>
+                        <form onsubmit="handleNewBroadcast(event);" class="bg-white border border-slate-200 p-5 rounded-xl shadow-sm space-y-3">
+                            <div><label class="block text-xs font-bold mb-1 text-slate-600">Notice Broadcast Title</label><input id="bc-title" type="text" required placeholder="e.g. Resumption Guidelines Matrix" class="w-full text-xs p-2.5 border rounded-xl bg-slate-50 outline-none ring-1 ring-slate-100"></div>
+                            <div><label class="block text-xs font-bold mb-1 text-slate-600">Message Content Parameter Payload</label><textarea id="bc-body" rows="3" required placeholder="Type parameters to push downstream..." class="w-full text-xs p-2.5 border rounded-xl bg-slate-50 outline-none ring-1 ring-slate-100"></textarea></div>
+                            <button class="w-full py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs rounded-xl transition shadow">Dispatch Immediate System Broadcast</button>
+                        </form>
+                    </div>`;
+            }
+        }
+
+        function handleNewBroadcast(e) {
+            e.preventDefault();
+            AppState.communications.unshift({ id: Date.now(), title: document.getElementById('bc-title').value, body: document.getElementById('bc-body').value, date: "Today", sender: AppState.activeUser.name });
+            showToast("System notification dispatched.");
+            renderCommunicationPortal(document.getElementById('desktop-payload-mount'));
+        }
+
+        function renderRegistrationForms(mount) {
+            mount.innerHTML = `
+                <div class="bg-white border border-slate-200 p-6 rounded-xl text-xs max-w-md shadow-sm animate-fade-in">
+                    <h2 class="font-bold mb-1 text-sm text-slate-900">Digital Registry Admissions Forms Matrix</h2>
+                    <p class="text-xs text-slate-400 mb-4">Onboard student entities directly into system runtime arrays.</p>
+                    <form id="new-student-form" onsubmit="handleRegisterStudent(event);" class="space-y-3">
+                        <div><label class="block text-xs font-bold mb-1 text-slate-600">Student Legal Full Name</label><input id="reg-name" type="text" required placeholder="Legal Name e.g. Aminu Yusuf" class="w-full p-2.5 border rounded-xl bg-slate-50 outline-none ring-1 ring-slate-100"></div>
+                        <div><label class="block text-xs font-bold mb-1 text-slate-600">Assigned Class Stream Group</label><select id="reg-class" class="w-full p-2.5 border rounded-xl bg-slate-50 outline-none ring-1 ring-slate-100"><option>JS1</option><option>JS2</option><option>JS3</option><option>SS1</option><option selected>SS2</option><option>SS3</option></select></div>
+                        <div><label class="block text-xs font-bold mb-1 text-slate-600">Allocated Tuition Bill Fee (₦)</label><input id="reg-fees" type="number" required value="120000" class="w-full p-2.5 border rounded-xl bg-slate-50 outline-none ring-1 ring-slate-100"></div>
+                        <button type="submit" class="w-full py-2.5 bg-emerald-600 text-white font-bold rounded-xl shadow mt-2">Commit Record File</button>
+                    </form>
+                </div>`;
+        }
+
+        function handleRegisterStudent(event) {
+            event.preventDefault();
+            const name = document.getElementById('reg-name').value.trim();
+            const cls = document.getElementById('reg-class').value;
+            const bill = parseInt(document.getElementById('reg-fees').value) || 0;
+            AppState.students.unshift({ id: `AA/2026/${Math.floor(100+Math.random()*899)}`, name: name, class: cls, status: "Active", feesPaid: 0, balance: bill, attendance: 100, history: ["P","P","P","P","P"], ca1: 0, ca2: 0, exam: 0, cbtScore: null });
+            persistToMemory();
+            showToast(`Registered: ${name}`);
+            document.getElementById('new-student-form').reset();
+        }
+
+        function renderStudentsRoster(mount) {
+            let rows = AppState.students.map(s => `
+                <tr class="border-b text-xs border-slate-100 hover:bg-slate-50/50">
+                    <td class="py-3 px-3 font-mono font-bold text-slate-500">${s.id}</td>
+                    <td class="py-3 px-3 font-bold text-slate-900">${s.name}</td>
+                    <td class="py-3 px-3 text-center"><span class="bg-emerald-50 text-emerald-800 font-bold text-[10px] px-2 py-0.5 rounded border border-emerald-100">${s.class}</span></td>
+                    <td class="py-3 px-3">
+                        <div class="flex items-center gap-2">
+                            <div class="w-32 bg-slate-100 h-2 rounded-full overflow-hidden"><div class="bg-emerald-500 h-full" style="width: ${s.attendance}%"></div></div>
+                            <span class="font-bold text-[10px] text-slate-500">${s.attendance}%</span>
+                        </div>
+                    </td>
+                </tr>`).join('');
+                
+            mount.innerHTML = `
+                <div class="bg-white border border-slate-200 p-5 rounded-xl shadow-sm animate-fade-in max-w-4xl">
+                    <h2 class="font-bold text-sm text-slate-900 mb-4">Student Registry Index Directory Matrix</h2>
+                    <div class="max-h-[420px] overflow-y-auto custom-scrollbar">
+                        <table class="w-full text-left border-collapse">
+                            <thead><tr class="bg-slate-50 text-[10px] text-slate-400 font-bold border-b border-slate-100 sticky top-0"><th class="p-3 bg-slate-50">Admission Registry ID</th><th class="p-3 bg-slate-50">Legal Fullname Spec</th><th class="p-3 bg-slate-50 text-center">Class Block</th><th class="p-3 bg-slate-50">Attendance Matrix Profile</th></tr></thead>
+                            <tbody>${rows}</tbody>
+                        </table>
+                    </div>
+                </div>`;
+        }
+
+        function renderFinancesLedger(mount) {
+            let items = AppState.students.map(s => `
+                <tr class="border-b text-xs border-slate-100 hover:bg-slate-50/50">
+                    <td class="p-3 font-bold text-slate-900">${s.name} <span class="text-[10px] font-mono text-slate-400 block">${s.class} Split Code</span></td>
+                    <td class="p-3 font-medium text-slate-500">₦${s.feesPaid.toLocaleString()}</td>
+                    <td class="p-3 font-bold ${s.balance > 0 ? 'text-rose-600' : 'text-emerald-600'}">₦${s.balance.toLocaleString()}</td>
+                    <td class="p-3">${s.balance > 0 ? `<button onclick="reconcile('${s.id}')" class="px-3 py-1 bg-emerald-600 text-white rounded-lg font-bold text-[10px] shadow-sm hover:bg-emerald-700 transition">Post Payment</button>` : `<span class="bg-emerald-50 text-emerald-800 border border-emerald-100 px-2 py-0.5 text-[10px] font-bold rounded">Cleared Balance</span>`}</td>
+                </tr>`).join('');
+
+            mount.innerHTML = `
+                <div class="bg-white border border-slate-200 p-6 rounded-xl shadow-sm animate-fade-in max-w-4xl">
+                    <h2 class="font-bold text-sm mb-4 text-slate-900">Bursar Billing Ledger Balance Sheet</h2>
+                    <div class="max-h-[400px] overflow-y-auto custom-scrollbar"><table class="w-full text-left border-collapse"><thead><tr class="bg-slate-50 text-[10px] text-slate-400 font-bold border-b border-slate-100 sticky top-0"><th class="p-3 bg-slate-50">Student Full Identity Profile</th><th class="p-3 bg-slate-50">Amount Deposited Paid</th><th class="p-3 bg-slate-50">Outstanding Deficit</th><th class="p-3 bg-slate-50">Transaction Action Execution</th></tr></thead><tbody>${items}</tbody></table></div>
+                </div>`;
+        }
+
+        function reconcile(id) {
+            let s = AppState.students.find(stud => stud.id === id);
+            if(s) { s.feesPaid += s.balance; s.balance = 0; showToast(`Balanced account: ${s.name}`); persistToMemory(); renderFinancesLedger(document.getElementById('desktop-payload-mount')); }
+        }
+
+        function renderInventoryLedger(mount) {
+            let items = AppState.inventory.map(i => `
+                <tr class="border-b text-xs border-slate-100 hover:bg-slate-50/50">
+                    <td class="p-3 font-mono text-slate-400 font-bold">${i.id}</td>
+                    <td class="p-3 font-bold text-slate-900">${i.item}</td>
+                    <td class="p-3 text-slate-500 font-medium">${i.category}</td>
+                    <td class="p-3 font-bold">${i.stock} units</td>
+                    <td class="p-3"><span class="px-2 py-0.5 text-[10px] font-extrabold rounded-md ${i.status==='Good'?'bg-emerald-50 text-emerald-800 border border-emerald-100':'bg-amber-50 text-amber-800 border border-amber-100'}">${i.status}</span></td>
+                </tr>`).join('');
+
+            mount.innerHTML = `
+                <div class="bg-white border border-slate-200 p-6 rounded-xl shadow-sm animate-fade-in max-w-4xl">
+                    <h2 class="font-bold text-sm mb-4 text-slate-900">School Facility Stock Infrastructure Management Ledger</h2>
+                    <table class="w-full text-left border-collapse"><thead><tr class="bg-slate-50 text-[10px] text-slate-400 font-bold border-b border-slate-100"><th class="p-3">Asset ID</th><th class="p-3">Resource Item Description</th><th class="p-3">Category Cluster</th><th class="p-3">Current Stock Level</th><th class="p-3">Status Assessment</th></tr></thead><tbody>${items}</tbody></table>
+                </div>`;
+        }
+
+        function renderSysConfigView(mount) {
+            mount.innerHTML = `
+                <div class="bg-white border border-slate-200 p-6 rounded-xl shadow-sm text-xs max-w-md space-y-3 animate-fade-in">
+                    <h2 class="font-bold text-sm text-slate-900">System Environment Configuration Blocks</h2>
+                    <button onclick="localStorage.clear(); location.reload();" class="w-full py-2.5 text-center text-rose-600 bg-rose-50 rounded-xl font-bold">Factory Clear Sandbox Storage Engine Context</button>
+                </div>`;
+        }
+
+        function renderProblemsGrid(mount) {
+            let grids = AppState.problems.map(p => `
+                <div class="p-3.5 bg-white border border-slate-100 rounded-xl text-xs space-y-1 shadow-sm">
+                    <p class="font-bold text-slate-900">${p.text}</p>
+                    <p class="text-emerald-900 bg-emerald-50 p-2 rounded-lg border border-emerald-100 font-medium text-[11px]"><i class="fa-solid fa-wand-magic-sparkles text-emerald-600 mr-1"></i> ${p.fix}</p>
+                </div>`).join('');
+            mount.innerHTML = `<div class="animate-fade-in space-y-4"><div class="flex justify-between items-center"><div><h2 class="text-sm font-bold text-slate-900">System Performance Integrity Audit Framework</h2></div><button onclick="toggleProblemView()" class="px-2.5 py-1 text-[11px] border rounded-lg bg-white font-bold">Close Audit</button></div><div class="${isMobileRole() ? 'space-y-3':'grid grid-cols-2 gap-4'}">${grids}</div></div>`;
+        }
+    </script>
+</body>
+</html>
